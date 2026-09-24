@@ -2,6 +2,26 @@
 
 Plataforma de atendimento e gestão de solicitações — helpdesk com identidade HopDesk.
 
+## Telas
+
+### Autenticação
+
+| Login | Criar conta | Recuperar senha |
+|:---:|:---:|:---:|
+| ![Login](docs/img/login.png) | ![Criar conta](docs/img/create_account.png) | ![Recuperar senha](docs/img/recovery.png) |
+
+### Operação
+
+| Fila de chamados | Cumprimento do SLA | Base de conhecimento |
+|:---:|:---:|:---:|
+| ![Fila de chamados](docs/img/fila_chamados.png) | ![Insights / SLA](docs/img/insights.png) | ![Base de conhecimento](docs/img/kb.png) |
+
+### Conta e administração
+
+| Minha conta | Preferências | Usuários |
+|:---:|:---:|:---:|
+| ![Minha conta](docs/img/preferences.png) | ![Preferências](docs/img/settings.png) | ![Usuários](docs/img/users.png) |
+
 ## Estrutura
 
 - `client/` — React + Vite + Tailwind + shadcn/ui
