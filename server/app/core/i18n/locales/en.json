@@ -1,0 +1,89 @@
+{
+  "common": {
+    "not_found": "Not found."
+  },
+  "auth": {
+    "invalid_credentials": "Invalid email or password",
+    "email_not_confirmed": "Please confirm your email before signing in. Check your inbox.",
+    "user_blocked": "Your account is blocked. Please contact support.",
+    "invalid_refresh_token": "Invalid session. Please sign in again.",
+    "session_expired": "Your session has expired. Please sign in again.",
+    "invalid_token": "Invalid token. Please sign in again.",
+    "two_factor_disabled": "Two-factor authentication is not enabled.",
+    "two_factor_rate_limited": "A code was recently sent. Please wait before requesting another.",
+    "two_factor_invalid": "Invalid verification code.",
+    "email_confirmed": "Email confirmed successfully!",
+    "email_already_confirmed": "This email has already been confirmed.",
+    "invalid_confirmation_code": "Invalid confirmation code.",
+    "password_recovery_sent": "If the email is registered, you will receive instructions shortly.",
+    "invalid_reset_code": "Invalid reset code.",
+    "password_changed": "Password changed successfully!",
+    "forbidden": "You do not have permission for this action."
+  },
+  "user": {
+    "not_found": "User not found.",
+    "email_already_exists": "An account with this email already exists.",
+    "avatar_not_found": "The uploaded profile photo was not found.",
+    "wrong_password": "Current password is incorrect.",
+    "unsupported_locale": "Unsupported language.",
+    "cannot_change_own_role": "You cannot change your own role.",
+    "last_admin": "At least one administrator must remain.",
+    "invalid_role": "Invalid role. Use customer, agent, or administrator.",
+    "role_not_found": "Role not found."
+  },
+  "ticket": {
+    "not_found": "Ticket not found.",
+    "invalid_status": "Invalid status.",
+    "invalid_transition": "This status change is not allowed.",
+    "invalid_priority": "Invalid priority.",
+    "user_sector_required": "You must be linked to a sector to open tickets.",
+    "message_empty": "Message cannot be empty.",
+    "message_not_found": "Message not found.",
+    "internal_not_allowed": "Internal notes are for agents only.",
+    "attachment_required": "Upload at least one attachment.",
+    "attachment_not_found": "One or more attachments were not found. Please upload the files again.",
+    "description_invalid": "Description must be at least 3 characters.",
+    "close_details_required": "Provide the problem cause and solution to close the ticket.",
+    "effort_minutes_required": "Provide the actual time spent on the ticket to close it.",
+    "invalid_effort_minutes": "Time spent must be between 1 and 1440 minutes.",
+    "invalid_satisfaction_rating": "Satisfaction rating must be between 1 and 5.",
+    "satisfaction_not_eligible": "Only tickets in testing or closed can be rated.",
+    "satisfaction_already_rated": "This ticket has already been rated.",
+    "satisfaction_comment_too_long": "Satisfaction comment must be at most 1000 characters."
+  },
+  "customer": {
+    "not_found": "Customer not found.",
+    "name_exists": "A customer with this name already exists.",
+    "member_exists": "This user is already linked to a sector.",
+    "member_not_found": "User–sector link not found.",
+    "user_not_found": "User not found.",
+    "sector_not_found": "Sector not found.",
+    "sector_exists": "A sector with this name already exists.",
+    "not_customer": "Only users with the customer role can be linked.",
+    "sector_invalid_color": "Invalid sector color. Use the #RRGGBB format."
+  },
+  "knowledge_base": {
+    "not_found": "Article not found.",
+    "category_not_found": "Category not found.",
+    "slug_exists": "An article with this slug already exists.",
+    "parent_not_found": "Parent article not found.",
+    "invalid_parent": "You cannot move an article under one of its children.",
+    "max_depth": "The article tree has reached the maximum depth."
+  },
+  "sla": {
+    "not_found": "SLA (Service Level Agreement) not found.",
+    "invalid_timezone": "Invalid timezone."
+  },
+  "instance": {
+    "invalid_timezone": "Invalid timezone."
+  },
+  "files": {
+    "not_found": "File not found.",
+    "invalid_image_type": "Use a JPG, PNG or WebP image.",
+    "image_too_large": "The image must be at most 5 MB.",
+    "invalid_image_content": "The uploaded file is not a valid image.",
+    "invalid_attachment_type": "Unsupported file type. Use an image, video, or common document.",
+    "attachment_too_large": "The file must be at most 50 MB.",
+    "invalid_attachment_content": "The uploaded file is empty or invalid."
+  }
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Upload Article Image
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{base_url}}/v1/knowledge_base/articles/{{article_id}}/images
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  file: @file(/path/to/image.png)
+}

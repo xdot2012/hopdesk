@@ -1,0 +1,11 @@
+meta {
+  name: Assign Me
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{base_url}}/v1/ticket/{{ticket_id}}/assign_me
+  body: none
+  auth: inherit
+}

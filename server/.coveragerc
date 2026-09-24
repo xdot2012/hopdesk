@@ -1,0 +1,7 @@
+[run]
+source = app
+data_file = app/tests/coverage/.coverage
+omit = __init__.py
+
+[html]
+directory = app/tests/coverage/report

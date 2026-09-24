@@ -1,0 +1,11 @@
+meta {
+  name: Cancel Ticket
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{base_url}}/v1/ticket/{{ticket_id}}/cancel
+  body: none
+  auth: inherit
+}

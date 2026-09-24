@@ -1,0 +1,28 @@
+export const DEFAULT_INSTANCE_TIMEZONE = 'America/Sao_Paulo';
+
+export const INSTANCE_TIMEZONE_OPTIONS = [
+  { value: 'America/Sao_Paulo', label: 'America/Sao_Paulo (Brasília)' },
+  { value: 'America/Manaus', label: 'America/Manaus' },
+  { value: 'America/Belem', label: 'America/Belem' },
+  { value: 'America/Fortaleza', label: 'America/Fortaleza' },
+  { value: 'America/Recife', label: 'America/Recife' },
+  { value: 'America/Bahia', label: 'America/Bahia' },
+  { value: 'America/Cuiaba', label: 'America/Cuiaba' },
+  { value: 'America/Porto_Velho', label: 'America/Porto_Velho' },
+  { value: 'America/Rio_Branco', label: 'America/Rio_Branco' },
+  { value: 'America/Noronha', label: 'America/Noronha' },
+  { value: 'America/Argentina/Buenos_Aires', label: 'America/Argentina/Buenos_Aires' },
+  { value: 'America/Santiago', label: 'America/Santiago' },
+  { value: 'America/Bogota', label: 'America/Bogota' },
+  { value: 'America/Lima', label: 'America/Lima' },
+  { value: 'America/Mexico_City', label: 'America/Mexico_City' },
+  { value: 'America/New_York', label: 'America/New_York' },
+  { value: 'America/Chicago', label: 'America/Chicago' },
+  { value: 'America/Denver', label: 'America/Denver' },
+  { value: 'America/Los_Angeles', label: 'America/Los_Angeles' },
+  { value: 'UTC', label: 'UTC' },
+  { value: 'Europe/Lisbon', label: 'Europe/Lisbon' },
+  { value: 'Europe/London', label: 'Europe/London' },
+  { value: 'Europe/Madrid', label: 'Europe/Madrid' },
+  { value: 'Europe/Paris', label: 'Europe/Paris' },
+];

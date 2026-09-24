@@ -1,0 +1,17 @@
+meta {
+  name: Assignee Options
+  type: http
+  seq: 13
+}
+
+get {
+  url: {{base_url}}/v1/ticket/assignee_options
+  body: none
+  auth: inherit
+}
+
+params:query {
+  search:
+  page: 1
+  size: 20
+}

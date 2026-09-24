@@ -1,0 +1,15 @@
+meta {
+  name: Refresh Token
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{base_url}}/v1/user/refresh
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: {{refresh_token}}
+}

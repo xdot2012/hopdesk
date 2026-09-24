@@ -1,0 +1,161 @@
+---
+description: Usabilidade e padrões do frontend do HopDesk (React)
+globs: client/**
+alwaysApply: false
+---
+
+# Frontend — HopDesk
+
+## Público
+
+Agentes e usuários finais. Priorize simplicidade, clareza e poucos cliques.
+
+## Desktop first (helpdesk)
+
+Projete priorizando **desktop**. Mobile continua suportado (sidebar staff vira Sheet à esquerda; customer usa topbar).
+
+1. **Shell staff** — sidebar + topbar + conteúdo amplo.
+2. **Shell customer** — topbar (logo + nav + busca KB) + FAB; sem drawer.
+3. **Um fluxo só** — mesmas rotas em mobile e desktop.
+4. **Navegação staff na sidebar** — Chamados, Histórico, Indicadores (admin), Configurações, Sair.
+5. **Base de conhecimento** — topbar (atalho + busca); **SLA** — Settings → aba SLA.
+6. **Mobile** — hamburger staff abre Sheet; customer usa ícones na topbar; não inventar fluxo paralelo.
+
+## Princípios de UI
+
+1. **Linguagem humana** — português claro, sem jargão.
+2. **Ações visíveis** — sidebar/topbar + CTAs claros (FAB no customer).
+3. **Poucos níveis** — itens planos na sidebar; sem submenus profundos.
+4. **Confirmação** — ações destrutivas (ex.: sair) sempre com diálogo.
+5. **Cores** — workspace claro (neutros) + Teal Hop nos CTAs via tokens em `src/index.css` (sem hardcoded).
+
+## Navegação
+
+- **Sidebar** (`client/src/components/Drawer/`) — staff: logo + Chamados, Histórico, Indicadores (admin), Configurações, Sair.
+- **TopBar** (`client/src/components/Navbar/`) — busca KB; staff: atalho Base; customer: logo + nav (+ ícones abaixo de `lg`).
+- **Menu do avatar** — Configurações e Sair (com confirmação).
+- **Home staff** — fila de chamados (`/tickets`); `/` redireciona staff para a fila.
+- **Home customer** — lista de chamados em `/`.
+- **Indicadores** (admin) — dashboard SLA com período + `?group=`; fila ao vivo em `/tickets`.
+- Páginas secundárias: link **"Voltar ao painel"** quando fizer sentido.
+
+## Componentes de referência
+
+- `Drawer` / `DrawerMenu` — sidebar do helpdesk (staff).
+- `Navbar` — topbar (KB, notificações, avatar; nav customer).
+- `Navbar/UserMenu` — menu da conta (Configurações, Sair).
+- `AppLogo` — marca HopDesk.
+- `EmptyState` / `AppLoading` — estados neutros com ícones funcionais.
+- `Dashboard/Layout` — shell: drawer (staff) + topbar + `<main>`.
+
+## Stack
+
+React, Tailwind v4, shadcn/ui, Lucide icons, Zustand, React Router v6, i18next.
+
+## Internacionalização
+
+- Config: `client/src/i18n/index.ts`
+- Traduções: `client/src/locales/pt-BR.json`, `client/src/locales/en.json`
+- Seletor: `ChangeLanguageSelect` em Preferências
+- Usar `useTranslation()` — não hardcodar strings na interface
+
+## Ao criar telas
+
+1. Defina a ação principal do usuário.
+2. Exponha na sidebar (staff) ou topbar (customer) se for rota principal.
+3. Preferir CTAs claros no contexto da página.
+4. Use `Card` do shadcn para conteúdo secundário.
+5. Textos em português; ícones importantes sempre com rótulo (exceto compactação mobile documentada).
+
+## Evitar
+
+- Esconder navegação principal só em cartões/atalhos avulsos
+- Colocar Base ou SLA de volta na sidebar
+- Submenus aninhados profundos
+- Termos em inglês na interface
+- Ícones sem texto em ações importantes (exceto ícones mobile da topbar com `aria-label`)
+- Cores hardcoded fora dos tokens semânticos
+
+## Organização de código (obrigatório)
+
+### Geral
+
+1. **Um componente por arquivo** — não declarar mais de um componente React no mesmo `.tsx`. Helpers puros (funções sem JSX) podem ficar no arquivo. Exceção: `components/ui/` (shadcn).
+2. **Evitar `useEffect`** — preferir estado derivado no render, handlers de evento, keys para remount, ou lógica no router/store/API. Só use `useEffect` para sync com APIs externas do browser (subscriptions, timers, DOM APIs) quando não houver alternativa.
+
+### Componentes
+
+- `components/` só para peças **genéricas e reutilizáveis** entre áreas.
+- Componente específico de uma tela → pasta da página (`pages/<Area>/…`), não em `components/`.
+
+### Páginas e router
+
+- Páginas devem **respeitar o router**: path params, search params e deep links como fonte de verdade (ex.: Indicators com `?group=`).
+- Não duplicar estado de navegação só em `useState` quando a URL já deveria expressá-lo.
+- Rotas legadas podem redirecionar para a rota canônica (`Navigate`), em vez de reimplementar a tela.
+
+### Forms
+
+- Todo formulário em arquivo próprio: `pages/…/Form/index.tsx` (padrão Auth).
+- Validação **Zod** antes do envio (`schema.ts` + `useFormValidation`) — ver `api/auth/signIn/` + `pages/Auth/SignIn/Form/`.
+- Dialogs/modais com submit para API seguem a mesma regra (Form + Zod).
+
+## Seguir padrões existentes
+
+Antes de criar código, leia arquivos similares no mesmo diretório.
+
+### Estrutura de arquivos
+
+- Componentes genéricos: `components/<Nome>/index.tsx` (default export; **um** componente)
+- Específicos de tela: `pages/<Area>/…/<Nome>/index.tsx`
+- Páginas: `pages/<Area>/<Nome>/index.tsx` + `Form/index.tsx` se houver formulário
+- API: `api/<domain>/<recurso>/index.ts` (+ `types.ts`); formulários usam `schema.ts` (zod)
+- Contextos: `contexts/<Nome>/index.tsx` para dados compartilhados de domínio
+- Rotas UI: constantes em `router/paths.ts`, registro em `router/index.tsx`
+
+### API por recurso
+
+- Paths HTTP centralizados em `api/index.ts`
+- Um módulo por recurso (`api/user/uploadAvatar/`, `api/auth/signIn/`)
+- Upload no recurso associado; exibir imagem via `/v1/files/{key}`
+- Formulários: `useFormValidation` + zod + `FormControl`
+- Mutações simples: `useMutation`; leituras: `useQuery` / `useImmutableQuery`
+- Páginas **não** importam axios — usam hooks/funções de `api/`
+
+### Imports
+
+- Cross-module: alias `~/` (`~/components/ui/button`, `~/store`, `~/api`)
+- Mesmo módulo: caminhos relativos (`./Form`, `./schema`)
+
+### Estado e rotas
+
+- Feedback: `useAlertStore` (`showError`, `showSuccessSnack`)
+- Zustand: `store/<domain>Store.ts`, export em `store/index.ts`
+- Rotas autenticadas sob `RestrictedRoute` → `Dashboard/Layout`
+- Guards: `PublicRoute`, `RestrictedRoute`
+
+### Estilo
+
+- `cn()` de `~/lib/utils` para classes condicionais
+- Tokens semânticos Tailwind (`bg-background`, `text-primary`, `bg-sidebar`) — não cores hardcoded
+- shadcn/ui de `~/components/ui/`; ícones Lucide
+
+### Referências canônicas
+
+| Tarefa | Copiar estrutura de |
+|--------|---------------------|
+| Novo formulário auth | `api/auth/signIn/` + `pages/Auth/SignIn/Form/` |
+| Upload no contexto | `api/user/uploadAvatar/` |
+| Nova página autenticada | `pages/Settings/index.tsx` |
+| Novo componente UI | `components/EmptyState/index.tsx` |
+| Nova mutação simples | `api/auth/signOut/index.ts` |
+| Item na sidebar | `components/Drawer/DrawerMenu/index.tsx` |
+
+## Evitar (organização)
+
+- Mais de um componente React por arquivo (exceto `components/ui/`)
+- `useEffect` para espelhar props/API em state local ou “rodar lógica” que cabe em evento/derivação
+- Componentes de tela em `components/` (ex.: `StaffDashboard*`, views de ticket/KB só usadas numa área)
+- Forms inline na página sem pasta `Form/` ou sem Zod
+- Pastas `api/lookups/` ou `api/files/` para uploads
+- URLs de API hardcoded fora de `api/index.ts`

@@ -1,0 +1,11 @@
+meta {
+  name: Search Articles
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{base_url}}/v1/knowledge_base/articles?search=prioridade&limit=8
+  body: none
+  auth: inherit
+}

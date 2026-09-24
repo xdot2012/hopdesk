@@ -1,0 +1,25 @@
+meta {
+  name: List Tickets
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/v1/ticket/
+  body: none
+  auth: inherit
+}
+
+params:query {
+  search:
+  includeFinished: false
+  page: 1
+  size: 15
+}
+
+script:post-response {
+  let data = res.body;
+  if (data && Array.isArray(data.items) && data.items.length > 0 && data.items[0].id) {
+    bru.setEnvVar("ticket_id", data.items[0].id);
+  }
+}

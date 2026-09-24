@@ -1,0 +1,25 @@
+meta {
+  name: Add User Sector
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v1/user_sector/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "userId": "00000000-0000-0000-0000-000000000000",
+    "sectorId": "{{sector_id}}"
+  }
+}
+
+script:post-response {
+  let data = res.body;
+  if (data && data.id) {
+    bru.setEnvVar("user_sector_id", data.id);
+  }
+}

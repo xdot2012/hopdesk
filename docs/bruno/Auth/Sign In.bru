@@ -1,0 +1,30 @@
+meta {
+  name: Sign In
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/v1/auth/sign_in
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "sistema@hopdesk.local",
+    "password": "hopdesk123#",
+    "keepConnected": false
+  }
+}
+
+script:post-response {
+  let data = res.body; 
+  if (data && data.token) {
+    bru.setEnvVar("auth_token", data.token.tokenType + ' ' + data.token.accessToken);
+    bru.setEnvVar("refresh_token", data.token.tokenType + ' ' + data.token.refreshToken);
+  } else {
+    console.log("Access token not found in response.");
+  }
+  
+}

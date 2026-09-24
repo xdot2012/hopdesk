@@ -1,0 +1,18 @@
+meta {
+  name: Suggest Articles By Ticket
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{base_url}}/v1/knowledge_base/articles/suggest
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "ticketId": "{{ticket_id}}",
+    "limit": 5
+  }
+}

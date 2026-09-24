@@ -1,0 +1,26 @@
+meta {
+  name: Refresh Token
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/v1/auth/refresh
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: {{refresh_token}}
+}
+
+script:post-response {
+  let data = res.body; 
+  if (data) {
+    bru.setEnvVar("auth_token", data.tokenType + ' ' + data.accessToken);
+    bru.setEnvVar("refresh_token", data.tokenType + ' ' + data.refreshToken);
+  } else {
+    console.log("Access token not found in response.");
+  }
+  
+}

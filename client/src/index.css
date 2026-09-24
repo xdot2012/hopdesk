@@ -1,0 +1,561 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: "Jost";
+    src: local("Jost"), url(/assets/fonts/Jost-400-Book.ttf) format("truetype");
+}
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-sans: "Jost", ui-sans-serif, system-ui, sans-serif;
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+
+    /* Helpdesk: status / prioridade / SLA (nunca só cor — sempre com rótulo) */
+    --color-status-triage: var(--status-triage);
+    --color-status-triage-foreground: var(--status-triage-foreground);
+    --color-status-open: var(--status-open);
+    --color-status-open-foreground: var(--status-open-foreground);
+    --color-status-waiting: var(--status-waiting);
+    --color-status-waiting-foreground: var(--status-waiting-foreground);
+    --color-status-resolved: var(--status-testing);
+    --color-status-resolved-foreground: var(--status-testing-foreground);
+    --color-status-testing: var(--status-testing);
+    --color-status-testing-foreground: var(--status-testing-foreground);
+    --color-status-closed: var(--status-closed);
+    --color-status-closed-foreground: var(--status-closed-foreground);
+    --color-status-cancelled: var(--status-cancelled);
+    --color-status-cancelled-foreground: var(--status-cancelled-foreground);
+    --color-priority-low: var(--priority-low);
+    --color-priority-low-foreground: var(--priority-low-foreground);
+    --color-priority-medium: var(--priority-medium);
+    --color-priority-medium-foreground: var(--priority-medium-foreground);
+    --color-priority-high: var(--priority-high);
+    --color-priority-high-foreground: var(--priority-high-foreground);
+    --color-priority-urgent: var(--priority-urgent);
+    --color-priority-urgent-foreground: var(--priority-urgent-foreground);
+    --color-sla-due: var(--sla-due);
+    --color-sla-due-foreground: var(--sla-due-foreground);
+    --color-sla-failed: var(--sla-failed);
+    --color-sla-failed-foreground: var(--sla-failed-foreground);
+    --color-sla-ok: var(--sla-ok);
+    --color-sla-ok-foreground: var(--sla-ok-foreground);
+
+    /* Paleta viva para gráficos */
+    --color-chart-triage: var(--chart-triage);
+    --color-chart-open: var(--chart-open);
+    --color-chart-waiting: var(--chart-waiting);
+    --color-chart-resolved: var(--chart-testing);
+    --color-chart-testing: var(--chart-testing);
+    --color-chart-closed: var(--chart-closed);
+    --color-chart-sla-due: var(--chart-sla-due);
+    --color-chart-sla-resolution: var(--chart-sla-resolution);
+    --color-chart-sla-ok: var(--chart-sla-ok);
+    --color-chart-sla-failed: var(--chart-sla-failed);
+    --color-chart-sla-paused: var(--chart-sla-paused);
+    --color-chart-volume: var(--chart-volume);
+    --color-chart-priority-low: var(--chart-priority-low);
+    --color-chart-priority-medium: var(--chart-priority-medium);
+    --color-chart-priority-high: var(--chart-priority-high);
+    --color-chart-priority-urgent: var(--chart-priority-urgent);
+    --color-chart-aging-lt-1d: var(--chart-aging-lt-1d);
+    --color-chart-aging-d1-3: var(--chart-aging-d1-3);
+    --color-chart-aging-d3-7: var(--chart-aging-d3-7);
+    --color-chart-aging-gt-7d: var(--chart-aging-gt-7d);
+
+    --color-hop-green: var(--hop-green);
+    --color-hop-green-light: var(--hop-green-light);
+    --color-pond: var(--pond);
+    --color-lily: var(--lily);
+}
+
+:root {
+    --radius: 0.625rem;
+
+    /* HopDesk brand palette — Teal Hop */
+    --hop-green: oklch(0.52 0.14 175);
+    --hop-green-light: oklch(0.62 0.13 175);
+    --pond: oklch(0.28 0.04 200);
+    --lily: oklch(0.82 0.14 90);
+    /* Canvas levemente mais escuro que o card (branco) para hierarquia de superfície */
+    --off-white: oklch(0.955 0.01 175);
+
+    /*
+      Workspace claro + Teal Hop nos CTAs.
+    */
+    --background: var(--off-white);
+    --foreground: oklch(0.24 0.025 200);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.24 0.025 200);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.24 0.025 200);
+    --primary: var(--hop-green);
+    --primary-foreground: oklch(0.99 0.01 175);
+    --secondary: oklch(0.93 0.025 175);
+    --secondary-foreground: oklch(0.32 0.08 175);
+    --muted: oklch(0.935 0.014 175);
+    --muted-foreground: oklch(0.48 0.025 200);
+    --accent: oklch(0.93 0.04 175);
+    --accent-foreground: oklch(0.32 0.1 175);
+    --destructive: oklch(0.58 0.24 25);
+    --destructive-foreground: oklch(0.99 0.01 25);
+    --border: oklch(0.86 0.018 175);
+    --input: oklch(0.9 0.014 175);
+    --ring: var(--hop-green);
+    --sidebar: oklch(1 0 0);
+    --sidebar-foreground: oklch(0.3 0.025 200);
+    --sidebar-primary: var(--hop-green);
+    --sidebar-primary-foreground: oklch(0.99 0.01 175);
+    --sidebar-accent: oklch(0.93 0.04 175);
+    --sidebar-accent-foreground: oklch(0.32 0.1 175);
+    --sidebar-border: oklch(0.87 0.016 175);
+    --sidebar-ring: var(--hop-green);
+
+    /* Status badges — hues espalhados (violeta / azul / âmbar / verde) para distinguir colunas */
+    --status-triage: oklch(0.91 0.09 300);
+    --status-triage-foreground: oklch(0.38 0.2 300);
+    --status-open: oklch(0.92 0.04 265);
+    --status-open-foreground: oklch(0.38 0.08 265);
+    --status-in-progress: oklch(0.91 0.09 230);
+    --status-in-progress-foreground: oklch(0.36 0.16 230);
+    --status-waiting: oklch(0.93 0.1 45);
+    --status-waiting-foreground: oklch(0.42 0.16 45);
+    --status-testing: oklch(0.93 0.09 70);
+    --status-testing-foreground: oklch(0.4 0.14 70);
+    --status-closed: oklch(0.91 0.08 155);
+    --status-closed-foreground: oklch(0.34 0.14 155);
+    --status-cancelled: oklch(0.93 0.01 260);
+    --status-cancelled-foreground: oklch(0.4 0.02 260);
+
+    --priority-low: oklch(0.93 0.02 260);
+    --priority-low-foreground: oklch(0.42 0.03 260);
+    --priority-medium: oklch(0.93 0.12 90);
+    --priority-medium-foreground: oklch(0.42 0.14 85);
+    --priority-high: oklch(0.93 0.12 55);
+    --priority-high-foreground: oklch(0.45 0.18 45);
+    --priority-urgent: oklch(0.92 0.1 25);
+    --priority-urgent-foreground: oklch(0.45 0.2 25);
+
+    --sla-due: oklch(0.93 0.12 90);
+    --sla-due-foreground: oklch(0.42 0.14 85);
+    --sla-failed: oklch(0.92 0.1 25);
+    --sla-failed-foreground: oklch(0.45 0.2 25);
+    --sla-ok: oklch(0.92 0.08 175);
+    --sla-ok-foreground: oklch(0.38 0.14 175);
+
+    /* Gráficos: fills sólidos de alta saturação */
+    --chart-triage: oklch(0.62 0.2 300);
+    --chart-open: oklch(0.62 0.06 265);
+    --chart-in-progress: oklch(0.58 0.16 230);
+    --chart-waiting: oklch(0.72 0.16 45);
+    --chart-testing: oklch(0.72 0.15 70);
+    --chart-closed: oklch(0.58 0.14 155);
+    --chart-sla-due: oklch(0.75 0.19 55);
+    --chart-sla-resolution: oklch(0.65 0.18 220);
+    --chart-sla-ok: oklch(0.58 0.14 175);
+    --chart-sla-failed: oklch(0.62 0.24 25);
+    --chart-sla-paused: oklch(0.58 0.06 290);
+    --chart-volume: oklch(0.52 0.14 175);
+    --chart-priority-low: oklch(0.62 0.04 260);
+    --chart-priority-medium: oklch(0.75 0.16 95);
+    --chart-priority-high: oklch(0.7 0.18 55);
+    --chart-priority-urgent: oklch(0.62 0.24 25);
+    --chart-aging-lt-1d: oklch(0.58 0.14 175);
+    --chart-aging-d1-3: oklch(0.75 0.16 95);
+    --chart-aging-d3-7: oklch(0.7 0.18 55);
+    --chart-aging-gt-7d: oklch(0.62 0.24 25);
+
+    --scrollbar-thumb: oklch(0.72 0.02 175 / 55%);
+    --scrollbar-thumb-hover: oklch(0.62 0.03 175 / 75%);
+}
+
+.dark {
+    /* Pond — deep blue-green surfaces + Teal Hop accents */
+    --background: var(--pond);
+    --foreground: oklch(0.96 0.01 175);
+    --card: oklch(0.36 0.035 200);
+    --card-foreground: oklch(0.96 0.01 175);
+    --popover: oklch(0.36 0.035 200);
+    --popover-foreground: oklch(0.96 0.01 175);
+    --primary: var(--hop-green-light);
+    --primary-foreground: oklch(0.16 0.05 175);
+    --secondary: oklch(0.4 0.04 200);
+    --secondary-foreground: oklch(0.96 0.01 175);
+    --muted: oklch(0.32 0.03 200);
+    --muted-foreground: oklch(0.72 0.025 175);
+    --accent: oklch(0.4 0.05 175);
+    --accent-foreground: oklch(0.94 0.04 175);
+    --destructive: oklch(0.68 0.2 25);
+    --destructive-foreground: oklch(0.98 0.01 25);
+    --border: oklch(1 0 0 / 16%);
+    --input: oklch(0.38 0.03 200);
+    --ring: var(--hop-green-light);
+    --sidebar: oklch(0.24 0.035 200);
+    --sidebar-foreground: oklch(0.96 0.01 175);
+    --sidebar-primary: var(--hop-green-light);
+    --sidebar-primary-foreground: oklch(0.16 0.05 175);
+    --sidebar-accent: oklch(0.38 0.05 200);
+    --sidebar-accent-foreground: oklch(0.94 0.04 175);
+    --sidebar-border: oklch(1 0 0 / 14%);
+    --sidebar-ring: var(--hop-green-light);
+
+    --status-triage: oklch(0.38 0.14 300);
+    --status-triage-foreground: oklch(0.92 0.1 300);
+    --status-open: oklch(0.34 0.06 265);
+    --status-open-foreground: oklch(0.86 0.06 265);
+    --status-in-progress: oklch(0.38 0.12 230);
+    --status-in-progress-foreground: oklch(0.9 0.1 230);
+    --status-waiting: oklch(0.4 0.12 45);
+    --status-waiting-foreground: oklch(0.94 0.1 45);
+    --status-testing: oklch(0.4 0.12 70);
+    --status-testing-foreground: oklch(0.94 0.1 70);
+    --status-closed: oklch(0.36 0.1 155);
+    --status-closed-foreground: oklch(0.9 0.1 155);
+    --status-cancelled: oklch(0.34 0.01 260);
+    --status-cancelled-foreground: oklch(0.82 0.015 260);
+
+    --priority-low: oklch(0.34 0.02 260);
+    --priority-low-foreground: oklch(0.8 0.025 260);
+    --priority-medium: oklch(0.42 0.12 95);
+    --priority-medium-foreground: oklch(0.94 0.1 95);
+    --priority-high: oklch(0.42 0.14 55);
+    --priority-high-foreground: oklch(0.94 0.1 55);
+    --priority-urgent: oklch(0.42 0.16 25);
+    --priority-urgent-foreground: oklch(0.95 0.08 25);
+
+    --sla-due: oklch(0.4 0.12 75);
+    --sla-due-foreground: oklch(0.94 0.1 75);
+    --sla-failed: oklch(0.42 0.16 25);
+    --sla-failed-foreground: oklch(0.95 0.08 25);
+    --sla-ok: oklch(0.36 0.1 175);
+    --sla-ok-foreground: oklch(0.9 0.1 175);
+
+    --chart-triage: oklch(0.72 0.18 300);
+    --chart-open: oklch(0.65 0.06 265);
+    --chart-in-progress: oklch(0.65 0.14 230);
+    --chart-waiting: oklch(0.75 0.14 45);
+    --chart-testing: oklch(0.78 0.14 70);
+    --chart-closed: oklch(0.62 0.13 155);
+    --chart-sla-due: oklch(0.78 0.17 55);
+    --chart-sla-resolution: oklch(0.72 0.16 220);
+    --chart-sla-ok: oklch(0.62 0.13 175);
+    --chart-sla-failed: oklch(0.7 0.2 25);
+    --chart-sla-paused: oklch(0.68 0.1 290);
+    --chart-volume: oklch(0.62 0.13 175);
+    --chart-priority-low: oklch(0.65 0.04 260);
+    --chart-priority-medium: oklch(0.8 0.14 95);
+    --chart-priority-high: oklch(0.76 0.16 55);
+    --chart-priority-urgent: oklch(0.7 0.2 25);
+    --chart-aging-lt-1d: oklch(0.62 0.13 175);
+    --chart-aging-d1-3: oklch(0.8 0.14 95);
+    --chart-aging-d3-7: oklch(0.76 0.16 55);
+    --chart-aging-gt-7d: oklch(0.7 0.2 25);
+
+    --scrollbar-thumb: oklch(1 0 0 / 18%);
+    --scrollbar-thumb-hover: oklch(1 0 0 / 30%);
+}
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+        scrollbar-width: thin;
+        scrollbar-color: var(--scrollbar-thumb) transparent;
+    }
+
+    body {
+        @apply bg-background text-foreground font-sans antialiased;
+    }
+
+    *::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    *::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background-color: var(--scrollbar-thumb);
+        border-radius: 9999px;
+        border: 2px solid transparent;
+        background-clip: padding-box;
+    }
+
+    *::-webkit-scrollbar-thumb:hover {
+        background-color: var(--scrollbar-thumb-hover);
+    }
+}
+
+/* Badges de status/prioridade/SLA — cores sempre disponíveis (não dependem do scan do Tailwind) */
+@layer components {
+    .ticket-status-triage {
+        background-color: var(--status-triage);
+        color: var(--status-triage-foreground);
+    }
+    .ticket-status-open {
+        background-color: var(--status-open);
+        color: var(--status-open-foreground);
+    }
+    .ticket-status-in-progress {
+        background-color: var(--status-in-progress);
+        color: var(--status-in-progress-foreground);
+    }
+    .ticket-status-waiting {
+        background-color: var(--status-waiting);
+        color: var(--status-waiting-foreground);
+    }
+    .ticket-status-testing {
+        background-color: var(--status-testing);
+        color: var(--status-testing-foreground);
+    }
+    .ticket-status-closed {
+        background-color: var(--status-closed);
+        color: var(--status-closed-foreground);
+    }
+    .ticket-status-cancelled {
+        background-color: var(--status-cancelled);
+        color: var(--status-cancelled-foreground);
+    }
+
+    .ticket-priority-low {
+        background-color: var(--priority-low);
+        color: var(--priority-low-foreground);
+    }
+    .ticket-priority-medium {
+        background-color: var(--priority-medium);
+        color: var(--priority-medium-foreground);
+    }
+    .ticket-priority-high {
+        background-color: var(--priority-high);
+        color: var(--priority-high-foreground);
+    }
+    .ticket-priority-urgent {
+        background-color: var(--priority-urgent);
+        color: var(--priority-urgent-foreground);
+    }
+
+    .ticket-sla-failed {
+        background-color: var(--sla-failed);
+        color: var(--sla-failed-foreground);
+    }
+    .ticket-sla-due {
+        background-color: var(--sla-due);
+        color: var(--sla-due-foreground);
+    }
+    .ticket-sla-ok {
+        background-color: var(--sla-ok);
+        color: var(--sla-ok-foreground);
+    }
+}
+
+.rich-text-editor .ProseMirror {
+    min-height: 8rem;
+}
+
+.rich-text-editor--borderless .ProseMirror {
+    min-height: 50vh;
+}
+
+.rich-text-editor .ProseMirror img,
+.rich-text-content img {
+    display: block;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    max-height: min(480px, 70vh);
+    margin-block: 1rem;
+    border-radius: var(--radius-lg);
+    object-fit: contain;
+}
+
+.rich-text-editor .ProseMirror iframe,
+.rich-text-content iframe {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+    margin-block: 1rem;
+    border: 0;
+    border-radius: var(--radius-lg);
+}
+
+.rich-text-editor .ProseMirror:focus {
+    outline: none;
+}
+
+.rich-text-editor-bubble-menu {
+    width: max-content;
+    max-width: min(96vw, 48rem);
+    overflow-x: auto;
+    transform-origin: bottom center;
+    animation: rich-text-editor-bubble-menu-in 160ms ease-out;
+}
+
+@keyframes rich-text-editor-bubble-menu-in {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.rich-text-editor .ProseMirror p.is-editor-empty:first-child::before,
+.rich-text-editor .ProseMirror p.is-empty::before {
+    color: var(--muted-foreground);
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+}
+
+.rich-text-editor-slash-menu {
+    animation: rich-text-editor-bubble-menu-in 160ms ease-out;
+}
+
+.rich-text-editor-mention-menu {
+    animation: rich-text-editor-bubble-menu-in 160ms ease-out;
+}
+
+.rich-text-editor .mention,
+.rich-text-content .mention,
+.rich-text-editor span[data-type='mention'],
+.rich-text-content span[data-type='mention'] {
+    border-radius: 0.25rem;
+    background-color: color-mix(in oklab, var(--primary) 16%, transparent);
+    padding: 0.05rem 0.25rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.rich-text-content p {
+    margin-bottom: 0.75em;
+}
+
+.rich-text-content p:last-child {
+    margin-bottom: 0;
+}
+
+.rich-text-content strong {
+    font-weight: 600;
+}
+
+.rich-text-content em {
+    font-style: italic;
+}
+
+.rich-text-content s {
+    text-decoration: line-through;
+}
+
+.rich-text-content sub {
+    font-size: 0.75em;
+    vertical-align: sub;
+}
+
+.rich-text-content sup {
+    font-size: 0.75em;
+    vertical-align: super;
+}
+
+/* TipTap media resize handles */
+.rich-text-editor [data-resize-handle],
+.rich-text-editor .media-resize-handle {
+    background-color: var(--primary);
+    border: 2px solid var(--background);
+    border-radius: 9999px;
+    height: 10px;
+    opacity: 0;
+    position: absolute;
+    transition: opacity 0.15s ease;
+    width: 10px;
+    z-index: 10;
+}
+
+.rich-text-editor .ProseMirror-selectednode [data-resize-handle],
+.rich-text-editor .ProseMirror-selectednode .media-resize-handle,
+.rich-text-editor .is-resizing [data-resize-handle],
+.rich-text-editor .is-resizing .media-resize-handle {
+    opacity: 1;
+}
+
+.rich-text-editor img:hover ~ [data-resize-handle],
+.rich-text-editor .media-resize-container:hover .media-resize-handle {
+    opacity: 1;
+}
+
+.rich-text-editor .media-resize-container {
+    display: inline-block;
+    line-height: 0;
+    max-width: 100%;
+    position: relative;
+}
+
+.rich-text-editor .media-resize-wrapper {
+    display: inline-block;
+    line-height: 0;
+    position: relative;
+}
+
+.rich-text-editor [data-resize-handle='bottom-right'],
+.rich-text-editor .media-resize-handle[data-resize-handle='bottom-right'] {
+    bottom: -4px;
+    cursor: nwse-resize;
+    right: -4px;
+}
+
+.rich-text-editor [data-resize-handle='bottom-left'],
+.rich-text-editor .media-resize-handle[data-resize-handle='bottom-left'] {
+    bottom: -4px;
+    cursor: nesw-resize;
+    left: -4px;
+}
+
+.rich-text-editor [data-resize-handle='top-right'],
+.rich-text-editor .media-resize-handle[data-resize-handle='top-right'] {
+    cursor: nesw-resize;
+    right: -4px;
+    top: -4px;
+}
+
+.rich-text-editor [data-resize-handle='top-left'],
+.rich-text-editor .media-resize-handle[data-resize-handle='top-left'] {
+    cursor: nwse-resize;
+    left: -4px;
+    top: -4px;
+}

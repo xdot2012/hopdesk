@@ -1,0 +1,19 @@
+meta {
+  name: Two Factor
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{base_url}}/v1/auth/two_factor
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "admin@admin.com",
+    "password": "your_password",
+    "two_factor_code": "123456"
+  }
+}

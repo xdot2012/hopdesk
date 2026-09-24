@@ -1,0 +1,22 @@
+meta {
+  name: Upload Ticket Attachment
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{base_url}}/v1/ticket/attachments
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  file: @file(/path/to/screenshot.png)
+}
+
+script:post-response {
+  let data = res.body;
+  if (data && data.key) {
+    bru.setEnvVar("file_key", data.key);
+  }
+}

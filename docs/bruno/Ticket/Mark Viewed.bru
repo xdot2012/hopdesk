@@ -1,0 +1,11 @@
+meta {
+  name: Mark Viewed
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{base_url}}/v1/ticket/{{ticket_id}}/view
+  body: none
+  auth: inherit
+}

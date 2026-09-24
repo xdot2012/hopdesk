@@ -1,0 +1,64 @@
+{
+  "typescript.tsdk": "client/node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "tailwindCSS.experimental.configFile": "client/src/index.css",
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "editor.formatOnSave": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "explicit",
+      "source.organizeImports.ruff": "explicit"
+    }
+  },
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "python.defaultInterpreterPath": "${workspaceFolder}/server/.venv/bin/python",
+  "python.terminal.activateEnvironment": true,
+  "python.envFile": "${workspaceFolder}/server/.env",
+  "python.analysis.extraPaths": ["${workspaceFolder}/server"],
+  "python.analysis.autoImportCompletions": true,
+  "python.testing.cwd": "${workspaceFolder}/server",
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestArgs": ["tests"],
+  "ruff.interpreter": ["${workspaceFolder}/server/.venv/bin/python"],
+  "ruff.cwd": "${workspaceFolder}/server",
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/server/.venv": true
+  },
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.pytest_cache": true
+  },
+  "i18n-ally.localesPaths": ["client/src/locales"],
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.sourceLanguage": "pt-BR",
+  "i18n-ally.displayLanguage": "pt-BR",
+  "i18n-ally.enabledFrameworks": ["react", "i18next"],
+  "i18n-ally.namespace": false,
+  "i18n-ally.pathMatcher": "{locale}.json",
+  "i18n-ally.sortKeys": true,
+  "i18n-ally.extract.keyPrefix": "",
+  "i18n-ally.annotationInPlace": true
+}

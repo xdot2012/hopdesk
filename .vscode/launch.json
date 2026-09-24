@@ -1,0 +1,39 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Frontend: Chrome",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/client/src",
+      "sourceMaps": true
+    },
+    {
+      "name": "Backend: FastAPI",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": [
+        "app.main:app",
+        "--reload",
+        "--reload-dir",
+        "app",
+        "--log-level",
+        "debug"
+      ],
+      "cwd": "${workspaceFolder}/server",
+      "envFile": "${workspaceFolder}/server/.env",
+      "python": "${workspaceFolder}/server/.venv/bin/python",
+      "justMyCode": true
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Frontend: Dev + Chrome",
+      "configurations": ["Frontend: Chrome"],
+      "preLaunchTask": "client: dev",
+      "stopAll": true
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+meta {
+  name: Create Article
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/v1/knowledge_base/articles
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "Como abrir um chamado",
+    "slug": "como-abrir-um-chamado",
+    "body": "<p>Passo a passo para abrir um chamado no HopDesk.</p>",
+    "status": "draft",
+    "parentId": null,
+    "sortOrder": 0,
+    "visibility": "public"
+  }
+}
+
+script:post-response {
+  let data = res.body;
+  if (data && data.id) {
+    bru.setEnvVar("article_id", data.id);
+  }
+}

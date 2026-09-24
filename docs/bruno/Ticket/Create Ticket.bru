@@ -1,0 +1,28 @@
+meta {
+  name: Create Ticket
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v1/ticket/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "subject": "Problema no pagamento",
+    "description": "Não consigo concluir o pagamento no app.",
+    "externalId": "500854",
+    "attachments": [],
+    "priorityId": null
+  }
+}
+
+script:post-response {
+  let data = res.body;
+  if (data && data.id) {
+    bru.setEnvVar("ticket_id", data.id);
+  }
+}

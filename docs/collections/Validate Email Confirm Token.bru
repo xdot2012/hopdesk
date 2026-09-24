@@ -1,0 +1,11 @@
+meta {
+  name: Validate Email Confirm Token
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{base_url}}/v1/user/reset_password/{{code}}
+  body: none
+  auth: none
+}

@@ -1,0 +1,11 @@
+meta {
+  name: Delete Sector
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{base_url}}/v1/sector/{{sector_id}}
+  body: none
+  auth: inherit
+}

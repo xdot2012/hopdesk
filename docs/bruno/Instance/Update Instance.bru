@@ -1,0 +1,21 @@
+meta {
+  name: Update Instance
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{base_url}}/v1/instance/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "timezone": "America/Sao_Paulo",
+    "ticketEmailOnCreated": true,
+    "ticketEmailOnPublicMessage": true,
+    "ticketEmailOnStatusChange": true,
+    "ticketEmailOnAssignment": true
+  }
+}

@@ -1,0 +1,18 @@
+meta {
+  name: Update Sector
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{base_url}}/v1/sector/{{sector_id}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Suporte N1",
+    "color": "#1d4ed8"
+  }
+}

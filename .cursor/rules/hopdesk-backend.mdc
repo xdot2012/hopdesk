@@ -1,0 +1,161 @@
+---
+description: Arquitetura e padrões do backend HopDesk (FastAPI)
+globs: server/**
+alwaysApply: false
+---
+
+# Backend — HopDesk
+
+## Stack
+
+Python 3.10+, FastAPI, SQLAlchemy 2.0 (sync), PostgreSQL, Pydantic v2, JWT, Alembic, Redis (opcional).
+
+## Arquitetura
+
+Fluxo obrigatório: **routes** (HTTP fino) → **use_cases** (lógica) → **models** + **core/**.
+
+```
+app/routes/v1/{domain}/   →  app/use_cases/{domain}/   →  app/models/
+```
+
+## Ao adicionar feature
+
+1. **Model** em `app/models/` (herdar `TimedBase` / `AuditedBase` conforme necessário).
+2. **Migration** — `make create-migrations`, revisar arquivo gerado.
+3. **Schemas** em `app/schemas/v1/` — `{Action}Request`, `{Entity}Response`; usar `ResponseBaseModel` na saída.
+4. **Use case** em `app/use_cases/{domain}/` — toda lógica de negócio e DB aqui.
+5. **Route** em `app/routes/v1/{domain}/` — injetar deps, chamar use case, retornar schema.
+6. **Registrar router** no `__init__.py` do domínio e em `app/main.py` se novo domínio.
+
+## Convenções
+
+| Elemento | Padrão |
+|----------|--------|
+| Arquivos | `snake_case` |
+| Models | `PascalCase` singular |
+| Use cases | `verb_noun` — ação real | `create_user`, `get_user_profile` |
+| DI | `{Name}Dependency` |
+| API paths | `/v1/{domain}/snake_case` |
+| Tags OpenAPI | `"{Domain} - {Recurso}"` | `"User - Profile"` |
+
+## Rotas por recurso
+
+- **Um arquivo por entidade** em `routes/v1/{domain}/` — evitar módulos genéricos (`lookups`).
+- **`/v1/files`** — somente `GET /{file_key}`; uploads ficam no recurso (`/user/me/avatar`).
+- Rotas literais (`/images`) **antes** de dinâmicas (`/{id}`).
+
+## Use cases
+
+Nomear como ações reais: `list_*`, `get_*`, `create_*`, `update_*`. Evitar `resolve_*`, `helpers`, `utils` em `use_cases/`.
+
+## Auth e erros
+
+- Endpoints protegidos: `AuthTokenDependency`.
+- Erros de domínio: `HTTPException` com status adequado.
+- Validação/integridade: handlers globais em `app/core/errors/handlers.py`.
+- Respostas JSON em **camelCase** via `ResponseBaseModel`.
+
+## Mensagens para o usuário
+
+Mensagens de erro da API devem ser **claras e em português**, evitando códigos técnicos na resposta final exibida na UI.
+
+## Serviços (`app/services/`)
+
+Integrações externas (email, arquivos, monitoramento). Infra interna fica em `app/core/`.
+
+**Comece simples:** uma implementação local concreta em `repository.py`. Sem classe abstrata, mock ou múltiplas implementações antecipadas.
+
+```
+app/services/{nome}/
+├── entities.py      # (opcional) TypedDict
+├── repository.py    # implementação local concreta
+├── service.py       # adapter ({Nome}Service)
+└── __init__.py      # get_{nome}_service() com @lru_cache
+```
+
+Implementação específica (ex.: S3): subpasta `aws/repository.py` + opcional `aws/client.py`; factory escolhe via settings (`FILES_STORAGE_BACKEND=local|s3`).
+
+Integrar: settings → factory → `{Nome}Dependency` em `dependencies.py` → routes (DI) → use cases (parâmetro explícito).
+
+**Referência:** `app/services/file_management/` (local + `aws/`)
+
+## Tipagem estrutural
+
+- **Não usar `dataclass`** (`@dataclass` / `dataclasses`).
+- Estruturas leves (payloads, resultados internos, DTOs sem validação Pydantic): **`TypedDict`**.
+- Acesso por chave (`item["field"]`), construção como dict literal tipado.
+- Referência: `services/file_management/entities.py`.
+
+```python
+# ❌ BAD
+from dataclasses import dataclass
+
+@dataclass
+class StoredFile:
+    key: str
+    url: str
+
+# ✅ GOOD
+from typing import TypedDict
+
+class StoredFile(TypedDict):
+    key: str
+    url: str
+
+stored: StoredFile = {"key": key, "url": url}
+```
+
+## Evitar
+
+- Lógica de negócio em route handlers
+- Acesso direto ao DB fora de use cases
+- Quebrar contrato camelCase das respostas
+- Migrations sem revisão manual
+- Classe abstrata + mock + local ao criar serviço novo — só a implementação local primeiro
+- Módulos `lookups` ou use cases genéricos (`resolve_references`)
+- Uploads em `/v1/files` — upload no recurso associado
+- `dataclass` — preferir `TypedDict` (ou Pydantic em schemas de API)
+
+## Comandos locais
+
+`make db` → `make migrate` → `make dev`
+
+## Seguir padrões existentes
+
+Antes de criar código, leia arquivos do mesmo domínio em `routes/`, `use_cases/` e `schemas/`.
+
+### Estrutura obrigatória
+
+```
+routes/v1/{domain}/{action}.py   →   use_cases/{domain}/{verb_noun}.py   →   models/
+```
+
+- Routes: HTTP fino — injetar deps, chamar use case, retornar schema
+- Use cases: toda lógica e DB; `async def` com `Session` explícito; **sem** `HTTPException`
+- Schemas: `{Action}Request` + `{Entity}Response` em `schemas/v1/`
+
+### Convenções de código
+
+- Requests novos: `RequestBaseModel` (camelCase de entrada)
+- Responses: sempre `ResponseBaseModel` (camelCase de saída)
+- DI: aliases de `dependencies.py` (`AuthTokenDependency`, `DatabaseDependency`)
+- Models: herdar base adequada (`TimedBase`, `AuditedBase`, `UUIDBase`)
+- Tags OpenAPI: `"{Domain} - {UseCase}"`
+- Erros de domínio: `HTTPException` na route, não no use case
+- DB: preferir `db.execute(select(...))` em código novo
+
+### Composição e cache
+
+- Transações compostas: `commit=False` em use cases filhos, `db.commit()` no pai
+- Leituras caras: `@cached_database_resource`; invalidar cache em escritas
+
+### Referências canônicas
+
+| Tarefa | Copiar estrutura de |
+|--------|---------------------|
+| Endpoint protegido fino | `routes/v1/user/profile.py` |
+| Use case com DB | `use_cases/user/create_user.py` |
+| Schema request/response | `schemas/v1/user.py`, `schemas/v1/auth.py` |
+| Router de domínio | `routes/v1/user/__init__.py`, `routes/v1/auth/__init__.py` |
+| Registro no app | `app/main.py` |
+| Novo serviço externo | `services/file_management/` |

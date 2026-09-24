@@ -1,0 +1,20 @@
+meta {
+  name: Add Message
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{base_url}}/v1/ticket/{{ticket_id}}/messages
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "body": "Mensagem de acompanhamento.",
+    "visibility": "public",
+    "customerPending": false,
+    "attachments": []
+  }
+}

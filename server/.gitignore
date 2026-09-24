@@ -1,0 +1,8 @@
+# Ambiente local do servidor (o root .gitignore também cobre .env)
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+uploads/

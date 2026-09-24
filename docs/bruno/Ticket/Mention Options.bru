@@ -1,0 +1,17 @@
+meta {
+  name: Mention Options
+  type: http
+  seq: 15
+}
+
+get {
+  url: {{base_url}}/v1/ticket/mention_options
+  body: none
+  auth: inherit
+}
+
+params:query {
+  search:
+  page: 1
+  size: 20
+}

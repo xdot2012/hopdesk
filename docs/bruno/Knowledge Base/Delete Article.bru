@@ -1,0 +1,11 @@
+meta {
+  name: Delete Article
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{base_url}}/v1/knowledge_base/articles/{{article_id}}
+  body: none
+  auth: inherit
+}

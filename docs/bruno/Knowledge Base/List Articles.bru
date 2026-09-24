@@ -1,0 +1,18 @@
+meta {
+  name: List Articles
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/v1/knowledge_base/articles
+  body: none
+  auth: inherit
+}
+
+script:post-response {
+  let data = res.body;
+  if (Array.isArray(data) && data.length > 0 && data[0].id) {
+    bru.setEnvVar("article_id", data[0].id);
+  }
+}

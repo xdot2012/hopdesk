@@ -1,0 +1,24 @@
+meta {
+  name: Update Policy
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{base_url}}/v1/sla/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "timezone": "America/Sao_Paulo",
+    "targets": [
+      {
+        "priorityId": "00000000-0000-0000-0000-000000000000",
+        "firstResponseMinutes": 60,
+        "resolutionMinutes": 480
+      }
+    ]
+  }
+}

@@ -1,0 +1,67 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: ${SYSTEM_NAME}-nginx
+    ports:
+      - "80:80"  # Porta 80 exposta para o host
+    volumes:
+      - ./infra/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro  # Monta o arquivo de configuração do Nginx
+      - ./log/nginx:/var/log/nginx
+    depends_on:
+      - fastapi
+    networks:
+      - web
+
+  fastapi:
+    build: .
+    container_name: ${SYSTEM_NAME}-fastapi
+    volumes:
+      - ./app:/app
+    networks:
+      - web
+      - database
+    ports:
+      - "8000:8000"  # Expondo a porta 8000 para o host (opcional, se necessário para debugging)
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  postgres:
+    image: postgis/postgis:latest
+    container_name: ${SYSTEM_NAME}-database
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5434:5432"
+    volumes:
+      - database:/var/lib/postgresql/data
+    networks:
+      - database
+
+  redis:
+    image: redis:latest
+    container_name: ${SYSTEM_NAME}-cache
+    ports:
+      - "6380:6379"
+    expose:
+      - 6379
+    networks:
+      - database
+
+  redis-insight:
+    image: redis/redisinsight
+    container_name: ${SYSTEM_NAME}-cache-insight
+    ports:
+      - "5540:5540"
+    networks:
+      - database
+
+volumes:
+  database:
+    name: ${SYSTEM_NAME}-data
+
+networks:
+  web:
+  database:
+

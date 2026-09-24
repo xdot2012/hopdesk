@@ -1,0 +1,89 @@
+{
+  "common": {
+    "not_found": "Recurso não encontrado."
+  },
+  "auth": {
+    "invalid_credentials": "E-mail ou senha incorretos",
+    "email_not_confirmed": "Confirme seu e-mail antes de entrar. Verifique sua caixa de entrada.",
+    "user_blocked": "Sua conta está bloqueada. Entre em contato com o suporte.",
+    "invalid_refresh_token": "Sessão inválida. Faça login novamente.",
+    "session_expired": "Sua sessão expirou. Faça login novamente.",
+    "invalid_token": "Token inválido. Faça login novamente.",
+    "two_factor_disabled": "A autenticação em duas etapas não está habilitada.",
+    "two_factor_rate_limited": "Um código foi enviado recentemente. Aguarde antes de solicitar outro.",
+    "two_factor_invalid": "Código de verificação inválido.",
+    "email_confirmed": "E-mail confirmado com sucesso!",
+    "email_already_confirmed": "Este e-mail já foi confirmado.",
+    "invalid_confirmation_code": "Código de confirmação inválido.",
+    "password_recovery_sent": "Se o e-mail estiver cadastrado, você receberá as instruções em breve.",
+    "invalid_reset_code": "Código de redefinição inválido.",
+    "password_changed": "Senha alterada com sucesso!",
+    "forbidden": "Você não tem permissão para esta ação."
+  },
+  "user": {
+    "not_found": "Usuário não encontrado.",
+    "email_already_exists": "Já existe uma conta com este e-mail.",
+    "avatar_not_found": "A foto de perfil enviada não foi encontrada.",
+    "wrong_password": "Senha atual incorreta.",
+    "unsupported_locale": "Idioma não suportado.",
+    "cannot_change_own_role": "Você não pode alterar o próprio papel.",
+    "last_admin": "É necessário manter pelo menos um administrador.",
+    "invalid_role": "Papel inválido. Use cliente, agente ou administrador.",
+    "role_not_found": "Papel não encontrado."
+  },
+  "ticket": {
+    "not_found": "Chamado não encontrado.",
+    "invalid_status": "Status inválido.",
+    "invalid_transition": "Não é permitido mover o chamado para esse status.",
+    "invalid_priority": "Prioridade inválida.",
+    "user_sector_required": "É necessário estar vinculado a um setor para abrir chamados.",
+    "message_empty": "A mensagem não pode estar vazia.",
+    "message_not_found": "Mensagem não encontrada.",
+    "internal_not_allowed": "Notas internas são apenas para agentes.",
+    "attachment_required": "Envie pelo menos um arquivo em anexo.",
+    "attachment_not_found": "Um ou mais anexos não foram encontrados. Envie os arquivos novamente.",
+    "description_invalid": "A descrição deve ter pelo menos 3 caracteres.",
+    "close_details_required": "Informe a causa e a solução do problema para fechar o chamado.",
+    "effort_minutes_required": "Informe o tempo efetivo gasto no atendimento para fechar o chamado.",
+    "invalid_effort_minutes": "O tempo gasto deve ser entre 1 e 1440 minutos.",
+    "invalid_satisfaction_rating": "A nota de atendimento deve ser entre 1 e 5.",
+    "satisfaction_not_eligible": "Só é possível avaliar chamados em teste ou fechados.",
+    "satisfaction_already_rated": "Este chamado já foi avaliado.",
+    "satisfaction_comment_too_long": "O comentário da avaliação deve ter no máximo 1000 caracteres."
+  },
+  "customer": {
+    "not_found": "Cliente não encontrado.",
+    "name_exists": "Já existe um cliente com este nome.",
+    "member_exists": "Este usuário já está vinculado a um setor.",
+    "member_not_found": "Vínculo usuário–setor não encontrado.",
+    "user_not_found": "Usuário não encontrado.",
+    "sector_not_found": "Setor não encontrado.",
+    "sector_exists": "Já existe um setor com este nome.",
+    "not_customer": "Somente usuários com papel de cliente podem ser vinculados.",
+    "sector_invalid_color": "Cor do setor inválida. Use o formato #RRGGBB."
+  },
+  "knowledge_base": {
+    "not_found": "Artigo não encontrado.",
+    "category_not_found": "Categoria não encontrada.",
+    "slug_exists": "Já existe um artigo com este endereço.",
+    "parent_not_found": "Artigo pai não encontrado.",
+    "invalid_parent": "Não é possível mover o artigo para dentro de um de seus filhos.",
+    "max_depth": "A árvore de artigos atingiu o limite de profundidade."
+  },
+  "sla": {
+    "not_found": "SLA (acordo de nível de serviço) não encontrado.",
+    "invalid_timezone": "Fuso horário inválido."
+  },
+  "instance": {
+    "invalid_timezone": "Fuso horário inválido."
+  },
+  "files": {
+    "not_found": "Arquivo não encontrado.",
+    "invalid_image_type": "Use uma imagem JPG, PNG ou WebP.",
+    "image_too_large": "A imagem deve ter no máximo 5 MB.",
+    "invalid_image_content": "O arquivo enviado não é uma imagem válida.",
+    "invalid_attachment_type": "Tipo de arquivo não suportado. Use imagem, vídeo ou documento comum.",
+    "attachment_too_large": "O arquivo deve ter no máximo 50 MB.",
+    "invalid_attachment_content": "O arquivo enviado está vazio ou é inválido."
+  }
+}

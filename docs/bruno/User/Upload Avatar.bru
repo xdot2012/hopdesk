@@ -1,0 +1,22 @@
+meta {
+  name: Upload Avatar
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/v1/user/me/avatar
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  file: @file(/path/to/avatar.png)
+}
+
+script:post-response {
+  let data = res.body;
+  if (data && data.key) {
+    bru.setEnvVar("file_key", data.key);
+  }
+}

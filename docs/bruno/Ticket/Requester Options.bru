@@ -1,0 +1,17 @@
+meta {
+  name: Requester Options
+  type: http
+  seq: 14
+}
+
+get {
+  url: {{base_url}}/v1/ticket/requester_options
+  body: none
+  auth: inherit
+}
+
+params:query {
+  search:
+  page: 1
+  size: 20
+}

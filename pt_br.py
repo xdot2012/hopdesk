@@ -1,0 +1,92 @@
+STOPWORDS_PT_BR = {
+    "a", "à", "às", "ao", "aos",
+    "o", "os", "as",
+    "um", "uma", "uns", "umas",
+
+    "de", "da", "das", "do", "dos",
+    "em", "no", "na", "nos", "nas",
+    "por", "para", "pra", "pro",
+    "com", "sem", "sob", "sobre",
+    "entre", "até", "após", "ante",
+    "contra", "desde", "durante",
+    "perante", "mediante", "segundo",
+
+    "e", "ou", "mas", "porém", "porem",
+    "contudo", "todavia", "entretanto",
+    "portanto", "logo", "pois",
+    "porque", "que", "se", "como",
+    "quando", "enquanto", "embora",
+    "nem", "também", "tambem",
+
+    "eu", "tu", "ele", "ela",
+    "nós", "nos", "vós", "vos",
+    "eles", "elas",
+    "me", "mim", "comigo",
+    "te", "ti", "contigo",
+    "lhe", "lhes",
+    "se", "si", "consigo",
+
+    "meu", "minha", "meus", "minhas",
+    "teu", "tua", "teus", "tuas",
+    "seu", "sua", "seus", "suas",
+    "nosso", "nossa", "nossos", "nossas",
+    "vosso", "vossa", "vossos", "vossas",
+
+    "este", "esta", "estes", "estas",
+    "esse", "essa", "esses", "essas",
+    "aquele", "aquela", "aqueles", "aquelas",
+    "isto", "isso", "aquilo",
+
+    "aqui", "ali", "lá", "la",
+    "onde", "aonde",
+    "agora", "hoje", "ontem", "amanhã", "amanha",
+    "sempre", "nunca", "jamais",
+    "já", "ja", "ainda",
+
+    "muito", "muita", "muitos", "muitas",
+    "pouco", "pouca", "poucos", "poucas",
+    "mais", "menos",
+    "todo", "toda", "todos", "todas",
+    "outro", "outra", "outros", "outras",
+    "mesmo", "mesma", "mesmos", "mesmas",
+    "cada", "algum", "alguma", "alguns", "algumas",
+    "nenhum", "nenhuma",
+    "qual", "quais",
+    "quanto", "quanta", "quantos", "quantas",
+
+    "ser", "sou", "é", "são", "era", "eram",
+    "foi", "foram", "será", "serao",
+    "seria", "seriam", "seja", "sejam",
+    "sendo", "sido",
+
+    "estar", "estou", "está", "estao", "estão",
+    "estava", "estavam",
+    "esteve", "estiveram",
+    "estará", "estariam",
+    "esteja", "estejam",
+
+    "ter", "tenho", "tem", "têm", "teve", "tinham",
+    "terá", "teriam", "tenha", "tenham",
+
+    "haver", "há", "ha", "havia", "houve",
+    "haverá", "havera",
+
+    "fazer", "faz", "fez", "feito",
+    "vai", "vão", "vao", "foi",
+    "pode", "podem", "poderia", "poderiam",
+    "deve", "devem", "deveria",
+    "quer", "querem",
+    "precisa", "precisam",
+
+    "não", "nao", "sim",
+    "bem", "mal",
+    "aí", "ai",
+    "então", "entao",
+    "assim", "aínda",
+
+    "tipo", "coisa", "coisas",
+    "forma", "maneira", "modo",
+    "parte", "vez", "vezes",
+    "caso", "casos",
+    "exemplo", "exemplos"
+}

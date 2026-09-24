@@ -1,0 +1,18 @@
+meta {
+  name: List Public Sectors
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/v1/sector/public
+  body: none
+  auth: none
+}
+
+script:post-response {
+  const data = res.getBody();
+  if (Array.isArray(data) && data.length > 0) {
+    bru.setEnvVar("sector_id", data[0].id);
+  }
+}

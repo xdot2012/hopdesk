@@ -1,0 +1,33 @@
+---
+description: Seguir padrões existentes do HopDesk — regra transversal
+alwaysApply: true
+---
+
+# HopDesk — Seguir padrões existentes
+
+Antes de escrever código novo, **leia arquivos vizinhos no mesmo domínio** e replique os padrões já usados.
+
+## Regras gerais
+
+1. **Não inventar arquitetura** — estender o que já existe, não introduzir libs ou padrões novos.
+2. **Espelhar o contexto** — ao editar `client/`, siga `client/AGENTS.md`; ao editar `server/`, siga `server/AGENTS.md`.
+3. **Consistência > preferência pessoal** — se o domínio usa um estilo (nomenclatura, estrutura de pasta, hook), use o mesmo.
+4. **Reutilizar antes de criar** — componentes (`EmptyState`, `FormControl`), hooks (`useFormValidation`, `useMutation`), deps (`AuthTokenDependency`), bases de model/schema.
+5. **Referências canônicas** — em dúvida, copie a estrutura de um arquivo similar existente e adapte.
+
+## Por contexto
+
+| Contexto | Consultar | Exemplos de referência |
+|----------|-----------|------------------------|
+| Frontend | `client/AGENTS.md` | `api/user/uploadAvatar/`, `api/auth/signIn/`, `pages/Settings/` |
+| Backend | `server/AGENTS.md` | `routes/v1/user/profile.py`, `use_cases/user/create_user.py`, `routes/v1/auth/session.py` |
+
+## Evitar
+
+- Padrões de outro framework/projeto
+- Bibliotecas não presentes em `package.json` / `requirements.txt`
+- Atalhos que quebram a separação routes → use_cases → models (backend)
+- Chamadas HTTP diretas em páginas (frontend) — usar hooks em `api/`
+- Rotas ou módulos genéricos (`lookups`, `resolve_*`) quando o domínio já tem um recurso claro
+- Uploads centralizados em `/files` — upload fica no recurso associado; `/files` só serve arquivos
+- `dataclass` no backend — usar `TypedDict` (ver `server/AGENTS.md` / `hopdesk-backend.mdc`)
